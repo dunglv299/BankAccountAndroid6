@@ -1,5 +1,6 @@
 package com.qsoft.bankaccount;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -24,7 +25,10 @@ public class BankAccountDao {
 
 	public long insert(BankAccountDTO accountDTO) {
 		// TODO Auto-generated method stub
-		return 0;
+		long rowID = -1;
+		ContentValues contentValues = new ContentValues();
+		
+		return rowID;
 	}
 
 }
