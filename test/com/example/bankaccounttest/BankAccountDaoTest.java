@@ -2,6 +2,7 @@ package com.example.bankaccounttest;
 
 import com.qsoft.bankaccount.BankAccountDTO;
 import com.qsoft.bankaccount.BankAccountDao;
+import com.qsoft.bankaccount.DatabaseHelper;
 
 import android.test.AndroidTestCase;
 
@@ -19,6 +20,8 @@ public class BankAccountDaoTest extends AndroidTestCase {
 		BankAccountDTO accountDTO = createSampleBankAccount();
 		long rowID = bankAccountDao.insert(accountDTO);
 		assertEquals(1, rowID);
+		assertEquals(1,
+				bankAccountDao.getTableSize(DatabaseHelper.TABLE_ACCOUNT));
 	}
 
 	public BankAccountDTO createSampleBankAccount() {

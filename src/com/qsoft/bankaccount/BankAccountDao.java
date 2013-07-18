@@ -2,6 +2,7 @@ package com.qsoft.bankaccount;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 public class BankAccountDao {
@@ -34,6 +35,12 @@ public class BankAccountDao {
 				accountDTO.getTimeStamp());
 		rowID = mDB.insert(DatabaseHelper.TABLE_ACCOUNT, null, contentValues);
 		return rowID;
+	}
+
+	public int getTableSize(String tableAccount) {
+		// TODO Auto-generated method stub
+		int numRows = (int) DatabaseUtils.queryNumEntries(mDB, tableAccount);
+		return numRows;
 	}
 
 }
