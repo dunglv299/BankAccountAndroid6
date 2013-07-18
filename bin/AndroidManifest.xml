@@ -12,6 +12,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <uses-library android:name="android.test.runner" />
     </application>
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="com.example.bankaccountandroid6" >
+    </instrumentation>
 
 </manifest>
