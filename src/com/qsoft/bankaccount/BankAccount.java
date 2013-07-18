@@ -1,6 +1,5 @@
 package com.qsoft.bankaccount;
 
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,10 +12,12 @@ public class BankAccount {
 
 	public BankAccountDTO openAccount(String accountNumber, float balance) {
 		// TODO Auto-generated method stub
-		BankAccountDTO accountDTO = new BankAccountDTO(accountNumber, balance);
+		long timeStamp = calendar.getTimeInMillis();
+		BankAccountDTO accountDTO = new BankAccountDTO(accountNumber, balance,
+				timeStamp);
 		accountDTO.setAccountNumber(accountNumber);
 		accountDTO.setBalance(balance);
-		long timeStamp = calendar.getTimeInMillis();
+
 		accountDTO.setTimeStamp(timeStamp);
 		bankAccountDao.save(accountDTO);
 

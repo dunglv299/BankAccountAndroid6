@@ -22,6 +22,7 @@ public class BankAccountDaoTest extends AndroidTestCase {
 	}
 
 	public BankAccountDTO createSampleBankAccount() {
-		return new BankAccountDTO("1234567890", 0);
+		long timeStamp = System.currentTimeMillis();
+		return new BankAccountDTO("1234567890", 0, timeStamp);
 	}
 }

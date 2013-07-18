@@ -27,7 +27,12 @@ public class BankAccountDao {
 		// TODO Auto-generated method stub
 		long rowID = -1;
 		ContentValues contentValues = new ContentValues();
-		
+		contentValues.put(DatabaseHelper.ACCOUNT_NUMBER,
+				accountDTO.getAccountNumber());
+		contentValues.put(DatabaseHelper.BALANCE, accountDTO.getBalance());
+		contentValues.put(DatabaseHelper.OPEN_TIMESTAMP,
+				accountDTO.getTimeStamp());
+		rowID = mDB.insert(DatabaseHelper.TABLE_ACCOUNT, null, contentValues);
 		return rowID;
 	}
 

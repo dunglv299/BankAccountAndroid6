@@ -1,6 +1,5 @@
 package com.qsoft.bankaccount;
 
-
 public class BankAccountDTO {
 
 	private String accountNumber;
@@ -11,10 +10,11 @@ public class BankAccountDTO {
 		super();
 	}
 
-	public BankAccountDTO(String accountNumber, float balance) {
+	public BankAccountDTO(String accountNumber, float balance, long timeStamp) {
 		// TODO Auto-generated constructor stub
 		this.accountNumber = accountNumber;
 		this.balance = balance;
+		this.timeStamp = timeStamp;
 	}
 
 	/**
