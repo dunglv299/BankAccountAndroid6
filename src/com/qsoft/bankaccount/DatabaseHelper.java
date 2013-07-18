@@ -1,6 +1,5 @@
 package com.qsoft.bankaccount;
 
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -25,11 +24,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CREATE_TABLE_TRANSACTION = "CREATE TABLE "
 			+ TABLE_TRANSACTION + " (" + ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + ACCOUNT_NUMBER
-			+ " TEXT NOT NULL," + AMOUNT + " FLOAT," + OPEN_TIMESTAMP + " LONG,"
-			+ TRANSACTION_DESCRIPTION + " TEXT)";
+			+ " TEXT NOT NULL," + AMOUNT + " FLOAT," + OPEN_TIMESTAMP
+			+ " LONG," + TRANSACTION_DESCRIPTION + " TEXT)";
 
-	public DatabaseHelper(Context context, String name) {
-		super(context, name, null, VERSION);
+	public DatabaseHelper(Context context, String dbName) {
+		super(context, dbName, null, VERSION);
 		// TODO Auto-generated constructor stub
 	}
 
