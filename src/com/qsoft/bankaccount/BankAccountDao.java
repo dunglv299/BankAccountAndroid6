@@ -26,6 +26,7 @@ public class BankAccountDao {
 
 	public long insert(BankAccountDTO accountDTO) {
 		// TODO Auto-generated method stub
+
 		long rowID = -1;
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.ACCOUNT_NUMBER,
