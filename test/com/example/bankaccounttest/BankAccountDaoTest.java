@@ -24,6 +24,16 @@ public class BankAccountDaoTest extends AndroidTestCase {
 				bankAccountDao.getTableSize(DatabaseHelper.TABLE_ACCOUNT));
 	}
 
+	public void testInsertDuplicateRecord() {
+		BankAccountDTO accountDTO1 = createSampleBankAccount();
+		BankAccountDTO accountDTO2 = createSampleBankAccount();
+		bankAccountDao.insert(accountDTO1);
+		long rowId = bankAccountDao.insert(accountDTO2);
+		assertEquals(1, rowId);
+		assertEquals(1,
+				bankAccountDao.getTableSize(DatabaseHelper.TABLE_ACCOUNT));
+	}
+
 	public BankAccountDTO createSampleBankAccount() {
 		long timeStamp = System.currentTimeMillis();
 		return new BankAccountDTO("1234567890", 0, timeStamp);
