@@ -2,11 +2,31 @@ package com.qsoft.bankaccount;
 
 import java.util.List;
 
-public class TransactionDao {
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
-	public void insert(TransactionDTO transactionDTO) {
+public class TransactionDao {
+	SQLiteDatabase mDb;
+
+	public TransactionDao(Context context, String dbName) {
+		// TODO Auto-generated constructor stub
+		DatabaseHelper databaseHelper = new DatabaseHelper(context, dbName);
+		this.mDb = databaseHelper.getReadableDatabase();
+	}
+
+	public long insert(TransactionDTO transactionDTO) {
 		// TODO Auto-generated method stub
-		
+		long rowId = -1;
+		ContentValues values = new ContentValues();
+		values.put(DatabaseHelper.ACCOUNT_NUMBER,
+				transactionDTO.getAccountNumber());
+		values.put(DatabaseHelper.AMOUNT, transactionDTO.getAmount());
+		values.put(DatabaseHelper.OPEN_TIMESTAMP, transactionDTO.getTimeStamp());
+		values.put(DatabaseHelper.TRANSACTION_DESCRIPTION,
+				transactionDTO.getDescription());
+		rowId = mDb.insert(DatabaseHelper.TABLE_TRANSACTION, null, values);
+		return rowId;
 	}
 
 	public List<TransactionDTO> getTransactionDaoOccurred(String accountNumber) {
