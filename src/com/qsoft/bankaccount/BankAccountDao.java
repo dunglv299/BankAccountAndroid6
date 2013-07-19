@@ -17,12 +17,33 @@ public class BankAccountDao {
 
 	public void save(BankAccountDTO accountDTO) {
 		// TODO Auto-generated method stub
-
+		String whereClause = DatabaseHelper.ACCOUNT_NUMBER + "="
+				+ accountDTO.getAccountNumber();
+		ContentValues values = new ContentValues();
+		values.put(DatabaseHelper.ACCOUNT_NUMBER, accountDTO.getAccountNumber());
+		values.put(DatabaseHelper.BALANCE, accountDTO.getBalance());
+		values.put(DatabaseHelper.OPEN_TIMESTAMP, accountDTO.getTimeStamp());
+		mDB.update(DatabaseHelper.TABLE_ACCOUNT, values, whereClause, null);
 	}
 
 	public BankAccountDTO getAccountDao(String accountNumber) {
 		// TODO Auto-generated method stub
-		return null;
+		BankAccountDTO accountDTO = new BankAccountDTO();
+		String whereClause = DatabaseHelper.ACCOUNT_NUMBER + "= ?";
+		Cursor cursor = mDB.query(DatabaseHelper.TABLE_ACCOUNT, new String[] {
+				DatabaseHelper.ID, DatabaseHelper.ACCOUNT_NUMBER,
+				DatabaseHelper.BALANCE, DatabaseHelper.OPEN_TIMESTAMP },
+				whereClause, new String[] { accountNumber }, null, null, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				accountDTO.setAccountNumber(cursor.getString(1));
+				accountDTO.setBalance(cursor.getLong(2));
+				accountDTO.setTimeStamp(cursor.getLong(3));
+			} while (cursor.moveToNext());
+
+		}
+		return accountDTO;
 	}
 
 	public long insert(BankAccountDTO accountDTO) {

@@ -43,7 +43,7 @@ public class BankAccountDaoTest extends AndroidTestCase {
 
 		BankAccountDTO accountDTOFromDB = bankAccountDao
 				.getAccountDao(accountDTO.getAccountNumber());
-		assertEquals(100, accountDTOFromDB.getBalance());
+		assertEquals(100, accountDTOFromDB.getBalance(), 0.01);
 
 	}
 
