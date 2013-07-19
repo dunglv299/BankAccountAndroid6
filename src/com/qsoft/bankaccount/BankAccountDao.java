@@ -2,6 +2,7 @@ package com.qsoft.bankaccount;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -29,13 +30,26 @@ public class BankAccountDao {
 
 		long rowID = -1;
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.ACCOUNT_NUMBER,
-				accountDTO.getAccountNumber());
-		contentValues.put(DatabaseHelper.BALANCE, accountDTO.getBalance());
-		contentValues.put(DatabaseHelper.OPEN_TIMESTAMP,
-				accountDTO.getTimeStamp());
-		rowID = mDB.insert(DatabaseHelper.TABLE_ACCOUNT, null, contentValues);
+		if (!checkExistRecord(accountDTO)) {
+			contentValues.put(DatabaseHelper.ACCOUNT_NUMBER,
+					accountDTO.getAccountNumber());
+			contentValues.put(DatabaseHelper.BALANCE, accountDTO.getBalance());
+			contentValues.put(DatabaseHelper.OPEN_TIMESTAMP,
+					accountDTO.getTimeStamp());
+			rowID = mDB.insert(DatabaseHelper.TABLE_ACCOUNT, null,
+					contentValues);
+		}
 		return rowID;
+	}
+
+	public boolean checkExistRecord(BankAccountDTO accountDTO) {
+		Cursor cursor = mDB.rawQuery("SELECT * FROM "
+				+ DatabaseHelper.TABLE_ACCOUNT + " WHERE "
+				+ DatabaseHelper.ACCOUNT_NUMBER + "=?",
+				new String[] { accountDTO.getAccountNumber() });
+		boolean exists = (cursor.getCount() > 0);
+		cursor.close();
+		return exists;
 	}
 
 	public int getTableSize(String tableAccount) {

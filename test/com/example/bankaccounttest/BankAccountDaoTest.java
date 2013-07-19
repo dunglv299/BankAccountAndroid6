@@ -27,9 +27,10 @@ public class BankAccountDaoTest extends AndroidTestCase {
 	public void testInsertDuplicateRecord() {
 		BankAccountDTO accountDTO1 = createSampleBankAccount();
 		BankAccountDTO accountDTO2 = createSampleBankAccount();
-		bankAccountDao.insert(accountDTO1);
-		long rowId = bankAccountDao.insert(accountDTO2);
-		assertEquals(1, rowId);
+		long rowId1 = bankAccountDao.insert(accountDTO1);
+		long rowId2 = bankAccountDao.insert(accountDTO2);
+		assertEquals(1, rowId1);
+		assertEquals(-1, rowId2);
 		assertEquals(1,
 				bankAccountDao.getTableSize(DatabaseHelper.TABLE_ACCOUNT));
 	}
