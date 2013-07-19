@@ -1,9 +1,11 @@
 package com.qsoft.bankaccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class TransactionDao {
@@ -31,7 +33,27 @@ public class TransactionDao {
 
 	public List<TransactionDTO> getTransactionDaoOccurred(String accountNumber) {
 		// TODO Auto-generated method stub
-		return null;
+		List<TransactionDTO> listTransaction = new ArrayList<TransactionDTO>();
+		TransactionDTO transactionDTO = new TransactionDTO();
+		String whereClasue = DatabaseHelper.ACCOUNT_NUMBER + "= ?";
+		Cursor cursor = mDb.query(DatabaseHelper.TABLE_TRANSACTION,
+				new String[] { DatabaseHelper.ID,
+						DatabaseHelper.ACCOUNT_NUMBER, DatabaseHelper.AMOUNT,
+						DatabaseHelper.OPEN_TIMESTAMP,
+						DatabaseHelper.TRANSACTION_DESCRIPTION }, whereClasue,
+				new String[] { accountNumber }, null, null, null);
+
+		if (cursor.moveToFirst()) {
+			do {
+				transactionDTO.setAccountNumber(cursor.getString(1));
+				transactionDTO.setAmount(cursor.getLong(2));
+				transactionDTO.setTimeStamp(cursor.getLong(3));
+				transactionDTO.setDescription(cursor.getString(4));
+				listTransaction.add(transactionDTO);
+			} while (cursor.moveToNext());
+
+		}
+		return listTransaction;
 	}
 
 	public List<TransactionDTO> getTransactionDaoOccurredInTime(
