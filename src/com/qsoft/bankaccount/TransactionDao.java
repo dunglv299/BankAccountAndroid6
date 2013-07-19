@@ -87,7 +87,29 @@ public class TransactionDao {
 	public List<TransactionDTO> getNumberOfTransactionDao(String accountNumber,
 			int numberOfTransaction) {
 		// TODO Auto-generated method stub
-		return null;
+		List<TransactionDTO> listTransaction = new ArrayList<TransactionDTO>();
+		TransactionDTO transactionDTO = new TransactionDTO();
+		String whereClasue = DatabaseHelper.ACCOUNT_NUMBER + "= ?";
+		Cursor cursor = mDb.query(DatabaseHelper.TABLE_TRANSACTION,
+				new String[] { DatabaseHelper.ID,
+						DatabaseHelper.ACCOUNT_NUMBER, DatabaseHelper.AMOUNT,
+						DatabaseHelper.OPEN_TIMESTAMP,
+						DatabaseHelper.TRANSACTION_DESCRIPTION }, whereClasue,
+				new String[] { accountNumber }, null, null,
+				DatabaseHelper.OPEN_TIMESTAMP + " DESC", numberOfTransaction
+						+ "");
+
+		if (cursor.moveToFirst()) {
+			do {
+				transactionDTO.setAccountNumber(cursor.getString(1));
+				transactionDTO.setAmount(cursor.getLong(2));
+				transactionDTO.setTimeStamp(cursor.getLong(3));
+				transactionDTO.setDescription(cursor.getString(4));
+				listTransaction.add(transactionDTO);
+			} while (cursor.moveToNext());
+
+		}
+		return listTransaction;
 	}
 
 }
