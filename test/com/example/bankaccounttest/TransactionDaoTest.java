@@ -1,7 +1,10 @@
 package com.example.bankaccounttest;
 
+import java.util.List;
+
 import android.test.AndroidTestCase;
 
+import com.qsoft.bankaccount.BankAccountDTO;
 import com.qsoft.bankaccount.TransactionDTO;
 import com.qsoft.bankaccount.TransactionDao;
 
@@ -19,6 +22,15 @@ public class TransactionDaoTest extends AndroidTestCase {
 		TransactionDTO transactionDTO = createSampleTransactionDTO();
 		long rowId = transactionDao.insert(transactionDTO);
 		assertEquals(1, rowId);
+	}
+
+	public void testGetTransactionDaoOccurred() {
+		TransactionDTO transactionDTO = createSampleTransactionDTO();
+		transactionDao.insert(transactionDTO);
+		transactionDao.insert(transactionDTO);
+		List<TransactionDTO> listTransaction = transactionDao
+				.getTransactionDaoOccurred(transactionDTO.getAccountNumber());
+		assertEquals(2, listTransaction.size());
 	}
 
 	public TransactionDTO createSampleTransactionDTO() {
