@@ -33,6 +33,18 @@ public class TransactionDaoTest extends AndroidTestCase {
 		assertEquals(2, listTransaction.size());
 	}
 
+	public void testGetTransactionDaoOccurredInTime() {
+		TransactionDTO transactionDTO = createSampleTransactionDTO();
+		transactionDTO.setTimeStamp(1L);
+		transactionDao.insert(transactionDTO);
+		transactionDTO.setTimeStamp(2L);
+		transactionDao.insert(transactionDTO);
+		List<TransactionDTO> listTransaction = transactionDao
+				.getTransactionDaoOccurredInTime(
+						transactionDTO.getAccountNumber(), 2L, 3L);
+		assertEquals(1, listTransaction.size());
+	}
+
 	public TransactionDTO createSampleTransactionDTO() {
 		TransactionDTO transactionDTO = new TransactionDTO("1234567890", 100,
 				System.currentTimeMillis(), "Deposit 100k");
